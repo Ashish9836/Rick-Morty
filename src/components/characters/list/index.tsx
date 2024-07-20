@@ -1,5 +1,4 @@
 "use client";
-
 import { getCharacters } from "@/services/characters/api";
 import { ICharacterFilters } from "@/types";
 import { useCallback, useEffect, useState } from "react";
