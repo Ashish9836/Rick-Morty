@@ -23,13 +23,7 @@ export const CharacterDetails = ({
       episode?.map((ep) => {
         return Number(ep.split("/")[ep.split("/").length - 1]);
       }) || [];
-    console.log(
-      ids,
-      "ids",
-      allEpisodesList,
-      "_all list",
-      allEpisodesList.filter((epi) => ids.includes(epi.id))
-    );
+
     const epNames =
       allEpisodesList
         .filter((epi) => ids.includes(epi.id))
