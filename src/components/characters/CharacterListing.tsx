@@ -55,6 +55,7 @@ export default function CharacterListing() {
       <CharacterFilter
         filteredOptions={filterOptions}
         filterValues={filterValues}
+        setFilterValues={setFilterValues}
         setLocationSearchTxt={setLocationSearchTxt}
       />
       <Listing filterValues={filterValues} setFilterValues={setFilterValues} />
