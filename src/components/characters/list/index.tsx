@@ -91,6 +91,7 @@ export const Listing = ({
       }));
   }, [characters.length]);
 
+  const isMore = tPages == 0 || tPages > filterValues.page;
   return (
     <div>
       {isLoading && (
@@ -108,9 +109,7 @@ export const Listing = ({
             setOpenDrawer={setOpenDrawer}
           />
         ))}
-        {tPages > filterValues.page && (
-          <CustomSkeletonLoader callback={loadMoreCallback} />
-        )}
+        {isMore && <CustomSkeletonLoader callback={loadMoreCallback} />}
       </div>
       {openDrawer && (
         <CustomDrawer
