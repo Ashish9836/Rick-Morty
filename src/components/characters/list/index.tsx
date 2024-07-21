@@ -5,7 +5,13 @@ import { useCallback, useEffect, useState } from "react";
 import CharacterCard from "../card";
 import CustomSkeletonLoader from "@/components/common/loader";
 
-export const Listing = () => {
+export const Listing = ({
+  filterValues,
+  setFilterValues,
+}: {
+  filterValues: any;
+  setFilterValues: any;
+}) => {
   /**
    * state declarations
    * >characters : to sore characters ([])
@@ -13,9 +19,6 @@ export const Listing = () => {
    * >tPages : to track max pages
    */
   const [characters, setCharacters] = useState<any[]>([]);
-  const [filter, setFilter] = useState<ICharacterFilters>({
-    page: 1,
-  });
   const [tPages, setTpages] = useState<number>(0);
 
   /**
@@ -23,10 +26,10 @@ export const Listing = () => {
    */
   const getCharacterList = async () => {
     try {
-      const result = await getCharacters(filter);
+      const result = await getCharacters(filterValues);
       setTpages(result?.data?.info?.pages || 0);
       const updatedChars: any[] =
-        filter.page === 1
+        filterValues.page === 1
           ? [...result?.data?.results]
           : [...characters, ...result?.data?.results];
       setCharacters(() => updatedChars);
@@ -38,14 +41,14 @@ export const Listing = () => {
   /*rerender logic for filter change*/
   useEffect(() => {
     getCharacterList();
-  }, [JSON.stringify(filter)]);
+  }, [JSON.stringify(filterValues)]);
 
   /**
    * @purpose : load more callback during inf-scroll
    */
   const loadMoreCallback = useCallback(() => {
-    if (characters.length && tPages > filter.page)
-      setFilter((prev) => ({ ...prev, page: prev.page + 1 }));
+    if (characters.length && tPages > filterValues.page)
+      setFilterValues((prev:ICharacterFilters) => ({ ...prev, page: prev.page + 1 }));
   }, [characters.length]);
 
   return (
