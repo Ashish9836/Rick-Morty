@@ -4,13 +4,13 @@ import config from "../../utils/config";
 import { ICharacterFilters } from "@/types";
 const API_URL = config.API_URL;
 
-export const getCharacters = async (payload:any) => {
-  
+export const getCharacters = async (payload: any) => {
   let query = "";
-  if(Object.keys(payload).length>1) query +="/?"
-  for (let key of Object.keys(payload)){
-    if(key!=="page"){
-      query+=`${key}=${payload[key]}`
+  if (Object.keys(payload).length > 1) query += "/?";
+  for (let key of Object.keys(payload)) {
+    if (key !== "page" && payload[key]) {
+      if (query.length > 0 && query[query.length - 1] !== "?") query += "&";
+      query += `${key}=${payload[key]}`;
     }
   }
 

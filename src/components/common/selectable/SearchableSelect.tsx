@@ -30,7 +30,6 @@ const SearchableSelect = ({
     if (isValue) {
       setSelectedOption(value);
       selectCallback(value);
-      setSearchTerm(label);
     }
     setIsMenuOpen(false);
   }, []);
@@ -51,6 +50,15 @@ const SearchableSelect = ({
       />
       {isMenuOpen && filteredOptions.length > 0 && (
         <div className="absolute z-10 w-full bg-white border border-gray-300 rounded shadow-md mt-1 max-h-60 overflow-auto">
+          <div
+            className="flex items-center justify-between cursor-pointer p-2 m-2 bg-gray-100 rounded border border-gray-300"
+            onClick={() => {
+              setIsMenuOpen(false);
+            }}
+          >
+            <div>close</div>
+            <X className="w-5 h-5" />
+          </div>
           {filteredOptions.map(({ label, value }, idx) => (
             <div
               key={idx}
@@ -62,7 +70,7 @@ const SearchableSelect = ({
           ))}
         </div>
       )}
-      {true && (
+      {selectedOption && (
         <div className="flex items-center justify-between p-2 mt-2 bg-gray-100 rounded border border-gray-300">
           <div>{selectedOption}</div>
           <button
