@@ -1,5 +1,10 @@
 import { ICharacter } from "@/types";
 
+export interface IPropType extends ICharacter {
+  setOpenDrawer: any; // New property added
+  location:any;
+  origin:any;
+}
 export const CharacterCard = ({
   image,
   name,
@@ -9,10 +14,27 @@ export const CharacterCard = ({
   gender,
   origin,
   location,
-  episodes,
-}: ICharacter) => {
+  episode,
+  setOpenDrawer,
+}: IPropType) => {
+  const cardClickHandler = () => {
+    setOpenDrawer(() => ({
+      image,
+      name,
+      status,
+      species,
+      type,
+      gender,
+      location,
+      origin,
+      episode
+    }));
+  };
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+    <div
+      className="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer"
+      onClick={cardClickHandler}
+    >
       <div className="flex items-center space-x-4 p-4">
         <img
           src={image}
@@ -36,15 +58,6 @@ export const CharacterCard = ({
         <p>
           <span className="font-semibold">Gender:</span> {gender}
         </p>
-        {/* <p>
-          <span className="font-semibold">Origin:</span> {origin}
-        </p> */}
-        {/* <p>
-          <span className="font-semibold">Location:</span> {location}
-        </p> */}
-        {/* <p>
-          <span className="font-semibold">Episodes:</span> {episodes}
-        </p> */}
       </div>
     </div>
   );

@@ -5,9 +5,9 @@ export interface ICharacter {
   species: string;
   type: string;
   gender: string;
-  origin: string;
-  location: string;
-  episodes: number;
+  origin: any;
+  location: any;
+  episode: any[];
   image: string;
 }
 
