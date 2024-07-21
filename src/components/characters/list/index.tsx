@@ -108,7 +108,9 @@ export const Listing = ({
             setOpenDrawer={setOpenDrawer}
           />
         ))}
-        <CustomSkeletonLoader callback={loadMoreCallback} />
+        {tPages > filterValues.page && (
+          <CustomSkeletonLoader callback={loadMoreCallback} />
+        )}
       </div>
       {openDrawer && (
         <CustomDrawer
