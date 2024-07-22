@@ -1,15 +1,40 @@
-import {ILocation } from "@/types";
-import { useMemo, useState } from "react";
+import { getCharactersByMultipleIds } from "@/services/characters/api";
+import { ILocation } from "@/types";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export const LocationDetails = ({
   name,
   type,
   dimension,
-  residents
+  residents,
 }: ILocation) => {
   const [seeResidents, setSeeResidents] = useState<boolean>(false);
+  const [members, setMembers] = useState([]);
   /*character's episode names*/
-  const episodeNames:any[] = [];
+  const episodeNames: any[] = [];
+
+  const getAllMembersData = useCallback(async () => {
+    try {
+      const charIds = residents.map((rs) =>
+        Number(rs.split("/")[rs.split("/").length - 1])
+      );
+      const memberRes = await getCharactersByMultipleIds(charIds);
+
+      const members = memberRes.data?.map((member: any) => ({
+        name: member.name,
+        image: member.image,
+        gender: member.gender,
+      }));
+      setMembers(members);
+    } catch (err) {
+      setMembers([]);
+    }
+  }, [name]);
+
+  /*residents detail api call*/
+  useEffect(() => {
+    getAllMembersData();
+  }, []);
 
   return (
     <div className="w-[400px] p-4">
@@ -25,7 +50,7 @@ export const LocationDetails = ({
         </p>
         <p className="font-semibold">
           Residents:
-          {episodeNames.length}{" "}
+          {members.length}{" "}
           {
             <span
               className="font-medium text-blue-500 cursor-pointer"
@@ -36,13 +61,13 @@ export const LocationDetails = ({
           }
           {seeResidents && (
             <div className="mt-1 max-h-[200px] overflow-y-auto border border-gray-300 p-2 rounded shadow-lg">
-              {episodeNames.map((eName, _idx) => (
+              {members.map(({ name, image }, _idx) => (
                 <div
                   key={_idx}
                   className="py-2 px-4 mb-2 bg-blue-100 border border-blue-300 rounded text-blue-700 font-medium"
                 >
                   {"(" + (_idx + 1) + ") "}
-                  {eName}
+                  {name}
                 </div>
               ))}
             </div>

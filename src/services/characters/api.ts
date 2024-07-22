@@ -23,3 +23,16 @@ export const getCharacters = async (payload: any) => {
     return Promise.reject();
   }
 };
+
+export const getCharactersByMultipleIds = async (payload: number[]) => {
+
+  try {
+    const res = await axios(`${API_URL}/character/${payload}`, {
+      method: "GET",
+    });
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject();
+  }
+};
+
