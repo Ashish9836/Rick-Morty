@@ -12,8 +12,8 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link href="/profile" className="font-semibold m-3">
-              Profile
+            <Link href="/locations" className="font-semibold m-3">
+              Locations
             </Link>
           </li>
           <li>

@@ -23,3 +23,14 @@ export interface ICharacterFilters {
 export interface ISkeletonProps {
   width: string;
 }
+export interface ILocation {
+  name: string;
+  type: string;
+  dimension: string;
+  residents: any[];
+}
+
+export interface ILocationFilters {
+  page: number;
+  name?: string;
+}

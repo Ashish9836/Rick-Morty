@@ -2,10 +2,12 @@ import { Drawer, DrawerContent, DrawerTitle } from "@/components/ui/drawer";
 export const CustomDrawer = ({
   body = <div></div>,
   open = false,
+  title = "Character details",
   closeHandler = () => {},
 }: {
   body?: any;
   open?: boolean;
+  title?:string;
   closeHandler: any;
 }) => {
   return (
@@ -20,7 +22,7 @@ export const CustomDrawer = ({
           >
             Back
           </div>
-          <DrawerTitle className="mt-2">Character Details</DrawerTitle>
+          <DrawerTitle className="mt-2">{title}</DrawerTitle>
           {body}
         </div>
       </DrawerContent>
